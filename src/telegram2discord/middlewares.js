@@ -290,7 +290,7 @@ function informThisIsPrivateBot(ctx, next) {
 				ctx.reply(
 					"This is a bridge bot, "
 					+ "made for bridging a chat in Telegram with one in Discord. "
-					+ "If you want to get a bridge, (you can request one by using our form)[https://forms.gle/6WpG1kz1Fu7iyHWJ7].",
+					+ "If you want to get a bridge, (you can request one by using our form)[].",
 					{
 						parse_mode: "markdown"
 					}
