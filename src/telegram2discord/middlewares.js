@@ -288,9 +288,9 @@ function informThisIsPrivateBot(ctx, next) {
 
 				// Send the reply
 				ctx.reply(
-					"This is an instance of a [TediCross](https://github.com/TediCross/TediCross) bot, "
-					+ "bridging a chat in Telegram with one in Discord. "
-					+ "If you wish to use TediCross yourself, please download and create an instance.",
+					"This is a bridge bot, "
+					+ "made for bridging a chat in Telegram with one in Discord. "
+					+ "If you want to get a bridge, (you can request one by using our form)[https://forms.gle/6WpG1kz1Fu7iyHWJ7].",
 					{
 						parse_mode: "markdown"
 					}
