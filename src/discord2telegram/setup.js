@@ -38,7 +38,7 @@ function makeJoinLeaveFunc(logger, verb, bridgeMap, tgBot) {
 	const relaySetting = verb === "joined" ? "relayJoinMessages" : "relayLeaveMessages";
 	return function (member) {
 		// Get the bridges in the guild the member joined/left
-		member.guild.channels
+		member.guild.channels.cache
 			// Get the bridges corresponding to the channels in this guild
 			.map(({ id }) => bridgeMap.fromDiscordChannelId(id))
 			// Remove the ones which are not bridged
@@ -380,34 +380,6 @@ function setup(logger, dcBot, tgBot, messageMap, bridgeMap, settings, datadirPat
 		dcBot.on("debug", str => {
 			logger.log(str);
 		});
-
-		// Check the Discord bot's status every now and then
-		setInterval(() => {
-			if (dcBot.status !== Discord.Constants.Status.READY) {
-				let actualStatus = null;
-				switch (dcBot.status) {
-					case Discord.Constants.Status.CONNECTING:
-						actualStatus = "CONNECTING";
-						break;
-					case Discord.Constants.Status.RECONNECTING:
-						actualStatus = "RECONNECTING";
-						break;
-					case Discord.Constants.Status.IDLE:
-						actualStatus = "IDLE";
-						break;
-					case Discord.Constants.Status.NEARLY:
-						actualStatus = "NEARLY";
-						break;
-					case Discord.Constants.Status.DISCONNETED:
-						actualStatus = "DISCONNECTED";
-						break;
-					default:
-						actualStatus = "UNKNOWN";
-						break;
-				}
-				logger.error(`Discord status not ready! Status is '${actualStatus}'`);
-			}
-		}, 1000);
 	}
 
 	// Make a promise which resolves when the dcBot is ready
@@ -431,9 +403,9 @@ function setup(logger, dcBot, tgBot, messageMap, bridgeMap, settings, datadirPat
 				// Remove the invalid channels
 				R.andThen(R.filter(R.complement(R.isNil))),
 				// Extract the server IDs from the channels
-				R.andThen(R.map(R.path(["guild", "id"]))),
+				R.andThen(R.map(R.path(["value", "guild", "id"]))),
 				// Remove those which failed
-				R.andThen(R.filter(R.propEq("status", "resolved"))),
+				R.andThen(R.filter(R.propEq("status", "fulfilled"))),
 				// Wait for the channels to be fetched
 				Promise.allSettled.bind(Promise),
 				// Get the channels
