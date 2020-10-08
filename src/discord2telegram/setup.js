@@ -237,9 +237,9 @@ function setup(logger, dcBot, tgBot, messageMap, bridgeMap, settings, datadirPat
 				antiInfoSpamSet.add(message.channel.id);
 
 				message.reply(
-					"This is an instance of a TediCross bot, bridging a chat in Telegram with one in Discord. " +
-						"If you wish to use TediCross yourself, please download and create an instance. " +
-						"See https://github.com/TediCross/TediCross"
+					"This is a bridge bot, made for bridging a chat in Telegram with one in Discord. "
+					+ "If you want to get a bridge, you can request one by using our form. "
+					+ ""
 				)
 					// Delete it again after some time
 					.then(sleepOneMinute)
@@ -364,12 +364,12 @@ function setup(logger, dcBot, tgBot, messageMap, bridgeMap, settings, datadirPat
 		if (err.code === "ECONNRESET") {
 			// Lost connection to the discord servers
 			logger.warn(
-				"Lost connection to Discord's servers. The bot will resume when connection is reestablished, which should happen automatically. If it does not, please report this to the TediCross support channel"
+				"Lost connection to Discord's servers. The bot will resume when connection is reestablished, which should happen automatically. If it does not, please report this to the bot developers"
 			);
 		} else {
 			// Unknown error. Tell the user to tell the devs
 			logger.error(
-				"The Discord bot ran into an error. Please post the following error message in the TediCross support channel"
+				"The Discord bot ran into an error. Please send the following error message to the bot developers"
 			);
 			logger.error(err);
 		}
